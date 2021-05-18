@@ -8,21 +8,25 @@ class SearchBar extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(evt) {
-    this.setState({ term: evt.target.value });
+    this.setState({ [evt.target.name]: evt.target.value });
   }
   handleSubmit(evt) {
     evt.preventDefault();
-    console.log(evt.state.term);
+    this.props.search(this.state);
+    this.setState({
+      term: "",
+    });
   }
   render() {
     return (
       <div className="ui segment">
-        <form onSubmit={this.handleSubmit.bind(this)} className="ui form">
+        <form onSubmit={this.handleSubmit} className="ui form">
           <div className="field">
             <label>Image Search</label>
           </div>
           <input
             type="text"
+            name="term"
             value={this.state.term}
             onChange={this.handleChange.bind(this)}
           />
